@@ -32,7 +32,7 @@ impl salsa::Database for TextDatabase {
     // fn salsa_event(&self, event: salsa::Event) {}
 }
 
-pub fn run(db: &mut TextDatabase) {
-    let input = db.set_text("/Users/dbarsky/Developer/salsa-benchmarks/src/lib.rs".to_string());
+pub fn run(db: &mut TextDatabase, text: String) {
+    let input = db.set_text(text);
     length(db, input);
 }

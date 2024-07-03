@@ -6,7 +6,8 @@ fn compare(c: &mut Criterion) {
     let mut db = TextDatabase::default();
     for n in &[10, 100] {
         group.bench_function(BenchmarkId::new("old_salsa", n), |b| {
-            b.iter(|| old_salsa::run(&mut db))
+            let text = std::iter::repeat("A").take(*n).collect::<String>();
+            b.iter(|| old_salsa::run(&mut db, text.clone()))
         });
     }
 

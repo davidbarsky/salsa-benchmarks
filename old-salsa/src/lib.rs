@@ -20,10 +20,7 @@ pub struct TextDatabase {
 
 impl salsa::Database for TextDatabase {}
 
-pub fn run(db: &mut TextDatabase) {
-    db.set_input_string(
-        (),
-        "/Users/dbarsky/Developer/salsa-benchmarks/src/lib.rs".to_string(),
-    );
+pub fn run(db: &mut TextDatabase, text: String) {
+    db.set_input_string((), text);
     db.length(());
 }
