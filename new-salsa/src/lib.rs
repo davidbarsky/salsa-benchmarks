@@ -31,8 +31,8 @@ impl Db for Database {
 
 impl salsa::Database for Database {}
 
-pub fn run_length(db: &mut Database, text: String) {
-    let input = db.set_text(text);
+pub fn run_length(db: &mut Database, input: Input, text: String) {
+    input.set_text(db).to(text);
     length(db, input);
 }
 
