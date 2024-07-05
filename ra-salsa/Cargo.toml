@@ -1,0 +1,15 @@
+[package]
+name = "ra-salsa"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.86"
+criterion = "0.5.1"
+dashmap = "6.0.1"
+salsa = { package = "salsa", git = "https://github.com/rust-lang/rust-analyzer.git" }
+tracing = "0.1"
+
+[[bench]]
+name = "compare"
+harness = false
