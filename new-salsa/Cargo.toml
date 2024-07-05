@@ -7,7 +7,6 @@ edition = "2021"
 anyhow = "1.0.86"
 criterion = "0.5.1"
 dashmap = "6.0.1"
-old_salsa = { package = "salsa", version = "0.16" }
 salsa = { git = "https://github.com/salsa-rs/salsa.git" }
 
 [[bench]]
