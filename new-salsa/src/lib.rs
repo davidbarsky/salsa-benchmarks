@@ -1,10 +1,15 @@
 #[salsa::jar(db = Db)]
-pub struct Jar(Input, length, tracked_constant_fn);
+pub struct Jar(Input, Counter, length, tracked_constant_fn);
 
 #[salsa::input]
 pub struct Input {
     #[return_ref]
     pub text: String,
+}
+
+#[salsa::input]
+pub struct Counter {
+    pub count: usize,
 }
 
 pub trait Db: salsa::DbWithJar<Jar> {
@@ -39,7 +44,7 @@ pub fn run_length(db: &mut Database, input: Input, text: String) {
 /// benchmark that that a constant `tracked` fn (has no inputs)
 /// compiles and executes successfully.
 #[salsa::tracked]
-fn tracked_constant_fn(_db: &dyn Db) -> u32 {
+fn tracked_constant_fn(_db: &dyn Db) -> usize {
     44
 }
 
