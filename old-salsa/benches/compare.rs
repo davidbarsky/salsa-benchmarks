@@ -12,7 +12,7 @@ fn compare(c: &mut Criterion) {
     }
 
     for n in &[1] {
-        group.bench_function(BenchmarkId::new("old_salsa", n), |b| {
+        group.bench_function(BenchmarkId::new("old_salsa_length", n), |b| {
             let text = std::iter::repeat("A").take(*n).collect::<String>();
             b.iter(|| old_salsa::run_string_length(&mut db, text.clone()))
         });
