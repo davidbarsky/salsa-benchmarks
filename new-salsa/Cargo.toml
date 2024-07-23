@@ -7,7 +7,7 @@ edition = "2021"
 anyhow = "1.0.86"
 criterion = "0.5.1"
 dashmap = "6.0.1"
-salsa = { git = "https://github.com/salsa-rs/salsa.git" }
+salsa = { path = "../../salsa" }
 
 [[bench]]
 name = "compare"

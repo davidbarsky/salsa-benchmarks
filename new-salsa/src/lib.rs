@@ -1,53 +1,34 @@
-#[salsa::jar(db = Db)]
-pub struct Jar(Input, Counter, length, tracked_constant_fn);
+#[salsa::db]
+pub trait Db: salsa::Database {}
 
-#[salsa::input]
-pub struct Input {
-    #[return_ref]
-    pub text: String,
-}
-
-#[salsa::input]
-pub struct Counter {
-    pub count: usize,
-}
-
-pub trait Db: salsa::DbWithJar<Jar> {
-    fn set_text(&self, text: String) -> Input;
-}
-
+#[salsa::db]
 #[derive(Default)]
-#[salsa::db(Jar)]
 pub struct Database {
     storage: salsa::Storage<Self>,
 }
 
+#[salsa::db]
+impl salsa::Database for Database {}
+
+#[salsa::db]
+impl Db for Database {}
+
+#[salsa::input]
+pub struct Input {
+    pub text: String,
+}
+
 #[salsa::tracked]
-fn length(db: &dyn Db, input: Input) -> usize {
+pub fn length(db: &dyn Db, input: Input) -> usize {
     input.text(db).len()
 }
 
-impl Db for Database {
-    fn set_text(&self, text: String) -> Input {
-        let input = Input::new(self, text);
-        input
-    }
+#[salsa::interned]
+pub struct InternedInput<'db> {
+    pub text: String,
 }
 
-impl salsa::Database for Database {}
-
-pub fn run_length(db: &mut Database, input: Input, text: String) {
-    input.set_text(db).to(text);
-    length(db, input);
-}
-
-/// benchmark that that a constant `tracked` fn (has no inputs)
-/// compiles and executes successfully.
 #[salsa::tracked]
-fn tracked_constant_fn(_db: &dyn Db) -> usize {
-    44
-}
-
-pub fn run_constant(db: &Database) {
-    tracked_constant_fn(db);
+pub fn interned_length<'db>(db: &'db dyn Db, input: InternedInput<'db>) -> usize {
+    input.text(db).len()
 }

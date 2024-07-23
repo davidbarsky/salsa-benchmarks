@@ -24,12 +24,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "allocator-api2"
-version = "0.2.18"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c6cb57a04249c6480766f7f7cef5467412af1490f8d1e243141daddada3264f"
-
-[[package]]
 name = "anes"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -70,6 +64,18 @@ name = "bitflags"
 version = "2.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b048fb63fd8b5923fc5aa7b340d8e156aec7ec02f0c78fa8a6ddc2613f6f71de"
+
+[[package]]
+name = "boomphf"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "617e2d952880a00583ddb9237ac3965732e8df6a92a8e7bcc054100ec467ec3b"
+dependencies = [
+ "crossbeam-utils",
+ "log",
+ "rayon",
+ "wyhash",
+]
 
 [[package]]
 name = "bumpalo"
@@ -241,19 +247,6 @@ checksum = "7a81dae078cea95a014a339291cec439d2f232ebe854a9d672b796c6afafa9b7"
 
 [[package]]
 name = "dashmap"
-version = "5.5.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "978747c1d849a7d2ee5e8adc0159961c48fb7e5db2f06af6723b80123bb53856"
-dependencies = [
- "cfg-if",
- "hashbrown 0.14.5",
- "lock_api",
- "once_cell",
- "parking_lot_core 0.9.10",
-]
-
-[[package]]
-name = "dashmap"
 version = "6.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "804c8821570c3f8b70230c2ba75ffa5c0f9a4189b9a432b6656c536712acae28"
@@ -301,14 +294,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e5274423e17b7c9fc20b6e7e208532f9b19825d82dfd615708b70edd83df41f1"
 dependencies = [
  "ahash",
- "allocator-api2",
 ]
 
 [[package]]
 name = "hashlink"
-version = "0.8.4"
+version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e8094feaf31ff591f651a2664fb9cfd92bba7a60ce3197265e9482ebe753c8f7"
+checksum = "6ba4ff7128dee98c7dc9794b6a411377e1404dba1c97deb8d1a55297bd25d8af"
 dependencies = [
  "hashbrown 0.14.5",
 ]
@@ -327,6 +319,12 @@ name = "heck"
 version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "95505c38b4572b2d910cecb0281560f54b440a19336cbbcb27bf6ce6adc6f5a8"
+
+[[package]]
+name = "heck"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
 
 [[package]]
 name = "hermit-abi"
@@ -441,7 +439,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "criterion",
- "dashmap 6.0.1",
+ "dashmap",
  "salsa 0.18.0",
 ]
 
@@ -460,7 +458,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "criterion",
- "dashmap 6.0.1",
+ "dashmap",
  "salsa 0.16.1",
 ]
 
@@ -475,6 +473,66 @@ name = "oorandom"
 version = "11.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0ab1bc2a289d34bd04a330323ac98a1b4bc82c9d9fcb1e66b63caa84da26b575"
+
+[[package]]
+name = "orx-concurrent-bag"
+version = "1.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "626ac9e207af7af7c638c1dbaa89f9eb164de9a5df7834d2cd3bae603e9ec8d9"
+dependencies = [
+ "orx-fixed-vec",
+ "orx-pinned-concurrent-col",
+ "orx-pinned-vec",
+ "orx-split-vec",
+]
+
+[[package]]
+name = "orx-concurrent-vec"
+version = "1.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "560e3d819a361775846793bd3453d4ad92ead343d78a032218524d810a10f03f"
+dependencies = [
+ "orx-concurrent-bag",
+ "orx-fixed-vec",
+ "orx-pinned-concurrent-col",
+ "orx-pinned-vec",
+ "orx-split-vec",
+]
+
+[[package]]
+name = "orx-fixed-vec"
+version = "2.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92b1feab17e804565dc7203abe7010f2923c6bebbcd2ea44ce539a6b14aba7d7"
+dependencies = [
+ "orx-pinned-vec",
+]
+
+[[package]]
+name = "orx-pinned-concurrent-col"
+version = "1.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a8090454a4719b3d663d5fd0fead482ece27573ef70a6217514f0526c6486990"
+dependencies = [
+ "orx-fixed-vec",
+ "orx-pinned-vec",
+ "orx-split-vec",
+]
+
+[[package]]
+name = "orx-pinned-vec"
+version = "2.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "10d7e4bbaaf315d1b3d4b574a005b09659c3a696ee87791f8d50115bf7a7efe7"
+
+[[package]]
+name = "orx-split-vec"
+version = "2.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "492b61b2cc2fdd3d06ebe34acdbe8670c21452f06b42d025136aaef994c5b4da"
+dependencies = [
+ "orx-pinned-vec",
+]
 
 [[package]]
 name = "parking_lot"
@@ -582,10 +640,16 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "criterion",
- "dashmap 6.0.1",
+ "dashmap",
  "salsa 0.0.0",
  "tracing",
 ]
+
+[[package]]
+name = "rand_core"
+version = "0.6.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 
 [[package]]
 name = "rayon"
@@ -661,6 +725,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08d43f7aa6b08d49f382cde6a7982047c3426db949b1424bc4b7ec9ae12c6ce2"
 
 [[package]]
+name = "rustc-hash"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "583034fd73374156e66797ed8e5b0d5690409c9226b22d87cb7f19821c05d152"
+
+[[package]]
 name = "ryu"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -676,7 +746,7 @@ dependencies = [
  "lock_api",
  "oorandom",
  "parking_lot 0.12.3",
- "rustc-hash",
+ "rustc-hash 1.1.0",
  "salsa-macros 0.0.0",
  "smallvec",
  "tracing",
@@ -695,7 +765,7 @@ dependencies = [
  "log",
  "oorandom",
  "parking_lot 0.11.2",
- "rustc-hash",
+ "rustc-hash 1.1.0",
  "salsa-macros 0.16.0",
  "smallvec",
 ]
@@ -703,19 +773,25 @@ dependencies = [
 [[package]]
 name = "salsa"
 version = "0.18.0"
-source = "git+https://github.com/salsa-rs/salsa.git#a1bf3a613f451af7fc0a59411c56abc47fe8e8e1"
 dependencies = [
  "arc-swap",
+ "boomphf",
  "crossbeam",
- "dashmap 5.5.3",
+ "dashmap",
  "hashlink",
  "indexmap 2.2.6",
- "log",
+ "orx-concurrent-vec",
  "parking_lot 0.12.3",
- "rustc-hash",
+ "rustc-hash 2.0.0",
+ "salsa-macro-rules",
  "salsa-macros 0.18.0",
  "smallvec",
+ "tracing",
 ]
+
+[[package]]
+name = "salsa-macro-rules"
+version = "0.1.0"
 
 [[package]]
 name = "salsa-macros"
@@ -743,8 +819,8 @@ dependencies = [
 [[package]]
 name = "salsa-macros"
 version = "0.18.0"
-source = "git+https://github.com/salsa-rs/salsa.git#a1bf3a613f451af7fc0a59411c56abc47fe8e8e1"
 dependencies = [
+ "heck 0.5.0",
  "proc-macro2",
  "quote",
  "syn 2.0.68",
@@ -1088,6 +1164,15 @@ name = "windows_x86_64_msvc"
 version = "0.52.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bec47e5bfd1bff0eeaf6d8b485cc1074891a197ab4225d504cb7a1ab88b02bf0"
+
+[[package]]
+name = "wyhash"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "baf6e163c25e3fac820b4b453185ea2dea3b6a3e0a721d4d23d75bd33734c295"
+dependencies = [
+ "rand_core",
+]
 
 [[package]]
 name = "zerocopy"
