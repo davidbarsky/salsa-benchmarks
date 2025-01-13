@@ -61,6 +61,8 @@ fn compare_plain_input(c: &mut Criterion) {
 
         b.iter(|| length(&db, input));
     });
+
+    group.finish();
 }
 
 criterion_group!(benches, compare_interned_input, compare_plain_input);

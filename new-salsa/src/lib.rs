@@ -1,14 +1,18 @@
+use salsa::Event;
+
 #[salsa::db]
 pub trait Db: salsa::Database {}
 
 #[salsa::db]
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct Database {
     storage: salsa::Storage<Self>,
 }
 
 #[salsa::db]
-impl salsa::Database for Database {}
+impl salsa::Database for Database {
+    fn salsa_event(&self, _event: &dyn Fn() -> Event) {}
+}
 
 #[salsa::db]
 impl Db for Database {}
