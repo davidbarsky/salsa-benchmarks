@@ -1,5 +1,5 @@
 [package]
-name = "ra-salsa"
+name = "rust-analyzer-salsa"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,8 +7,9 @@ edition = "2021"
 anyhow = "1.0.86"
 criterion = "0.5.1"
 dashmap = "6.0.1"
-salsa = { package = "salsa", git = "https://github.com/rust-lang/rust-analyzer.git" }
+ra-salsa = { package = "salsa", git = "https://github.com/rust-lang/rust-analyzer.git" }
 tracing = "0.1"
+dhat = "0.3"
 
 [[bench]]
 name = "compare"

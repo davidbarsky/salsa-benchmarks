@@ -1,8 +1,8 @@
 use std::usize;
 
-#[salsa::query_group(HelloWorldStorage)]
+#[ra_salsa::query_group(HelloWorldStorage)]
 trait HelloWorld {
-    #[salsa::input]
+    #[ra_salsa::input]
     fn input_string(&self, key: ()) -> String;
 
     fn length(&self, key: ()) -> usize;
@@ -20,13 +20,13 @@ fn constant(_db: &dyn HelloWorld, (): ()) -> usize {
     44
 }
 
-#[salsa::database(HelloWorldStorage)]
+#[ra_salsa::database(HelloWorldStorage)]
 #[derive(Default)]
 pub struct TestDatabase {
-    storage: salsa::Storage<Self>,
+    storage: ra_salsa::Storage<Self>,
 }
 
-impl salsa::Database for TestDatabase {}
+impl ra_salsa::Database for TestDatabase {}
 
 pub fn run_string_length(db: &mut TestDatabase, text: String) {
     db.set_input_string((), text);
